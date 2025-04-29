@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.example.shoppingcartapp.data.CartDataSource
-import com.example.shoppingcartapp.data.repository.CartRepository
+import com.example.shoppingcartapp.data.CartRepository
 import com.example.shoppingcartapp.domain.usecase.AddItemToCartUseCase
 import com.example.shoppingcartapp.domain.usecase.GetCartItemsUseCase
 import com.example.shoppingcartapp.domain.usecase.RemoveItemFromCartUseCase
