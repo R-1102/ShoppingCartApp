@@ -8,6 +8,7 @@ import com.example.shoppingcartapp.domain.usecase.GetCartItemsUseCase
 import com.example.shoppingcartapp.domain.usecase.RemoveItemFromCartUseCase
 import com.example.shoppingcartapp.presentation.screens.CartIntent
 import com.example.shoppingcartapp.presentation.screens.CartState
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -23,23 +24,17 @@ class CartViewModel(
 
     fun handleIntent(intent: CartIntent) {
         when (intent) {
-            is CartIntent.LoadCart -> {
-                loadCartItems()
-            }
-
-            is CartIntent.AddItem -> {
-                addItemToCart(intent.item)
-            }
-
-            is CartIntent.RemoveItem -> {
-                removeItemFromCart(intent.item)
+            is CartIntent.LoadCart -> loadCartItems()
+            is CartIntent.AddItem -> addItemToCart(intent.item)
+            is CartIntent.RemoveItem -> removeItemFromCart(intent.item)
             }
         }
-    }
+
 
     private fun loadCartItems() {
         viewModelScope.launch {
             _state.value = CartState.Loading
+            delay(500)
             try {
                 val items = getCartItemsUseCase()
                 _state.value = CartState.Success(items)
@@ -53,7 +48,7 @@ class CartViewModel(
         viewModelScope.launch {
             try {
                 addItemToCartUseCase(item)
-                loadCartItems() // Refresh
+                loadCartItems()
             } catch (e: Exception) {
                 _state.value = CartState.Error(e.message ?: "Unknown Error")
             }

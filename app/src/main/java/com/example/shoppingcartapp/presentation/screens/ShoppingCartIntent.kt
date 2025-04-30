@@ -6,4 +6,5 @@ sealed class CartIntent {
     object LoadCart : CartIntent()
     data class AddItem(val item: CartItem) : CartIntent()
     data class RemoveItem(val item: CartItem) : CartIntent()
+    
 }
